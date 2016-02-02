@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Message Tree</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<body>
+    <div id="tree-container"></div>
+	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="data.js"></script>
+	<script>
+
+	// *********** Convert flat data into a nice tree ***************
+	// create a name: node map
+	var dataMap = data.reduce(function(map, node) {
+	  map[node.name] = node;
+	  return map;
+	}, {});
+
+	// create the tree array
+	var myTreeData = [];
+	data.forEach(function(node) {
+	  // add to parent
+	  var parent = dataMap[node.parent];
+	  if (parent) {
+	    // create child array if it doesn't exist
+	    (parent.children || (parent.children = []))
+	      // add node to child array
+	      .push(node);
+	  } else {
+	    // parent is null or missing
+	    myTreeData.push(node);
+	  }
+	});
+
+	var treeJSON = makeTree(myTreeData[0]);
+	</script>
+</body>
+</html>
