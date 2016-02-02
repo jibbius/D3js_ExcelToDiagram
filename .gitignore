@@ -1,3 +1,9 @@
+# =========================
+# Project exclusions
+# =========================
+data.js
+data.json
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
